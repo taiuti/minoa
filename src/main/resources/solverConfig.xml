@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<solver xmlns="https://www.optaplanner.org/xsd/solver" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="https://www.optaplanner.org/xsd/solver https://www.optaplanner.org/xsd/solver/solver.xsd">
+  <environmentMode>FULL_ASSERT</environmentMode><!-- To slowly prove there are no bugs in this code -->
+  <!--<moveThreadCount>AUTO</moveThreadCount>--><!-- To solve faster by saturating multiple CPU cores -->
+
+  <scoreDirectorFactory>
+    <constraintProviderClass>org.taiuti.minoa.solver.VspConstraintProvider</constraintProviderClass>
+  </scoreDirectorFactory>
+
+  <constructionHeuristic>
+    <constructionHeuristicType>FIRST_FIT_DECREASING</constructionHeuristicType>
+  </constructionHeuristic>
+  <localSearch>
+    <tailChainSwapMoveSelector>
+      <entitySelector id="entitySelector3">
+        <entityClass>org.taiuti.minoa.model.Trip</entityClass>
+      </entitySelector>
+      <valueSelector variableName="previousStandstill">
+        <nearbySelection>
+            <originEntitySelector mimicSelectorRef="entitySelector3"/>
+            <nearbyDistanceMeterClass>org.taiuti.minoa.solver.nearby.TripNearbyDistanceMeter</nearbyDistanceMeterClass>
+            <parabolicDistributionSizeMaximum>40</parabolicDistributionSizeMaximum>
+        </nearbySelection>
+      </valueSelector>
+    </tailChainSwapMoveSelector>
+    <acceptor>
+      <lateAcceptanceSize>200</lateAcceptanceSize>
+    </acceptor>
+    <forager>
+      <acceptedCountLimit>1</acceptedCountLimit>
+    </forager>
+  </localSearch>
+
+</solver>
