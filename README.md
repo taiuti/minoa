@@ -51,5 +51,5 @@ If you want to learn more about building native executables, please consult http
 ## Example
 
 ```shell script
-curl -d "@/home/marco/project/optaplanner/minoa/src/main/resources/examples/Small_Input_P.json" -H "Content-Type: application/json" -X POST http://localhost:8080/vsp/solveJson
+curl -d "@./src/main/resources/examples/Small_Input_P.json" -H "Content-Type: application/json" -X POST http://localhost:8080/vsp/solveJson
 ```
